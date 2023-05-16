@@ -93,3 +93,50 @@ class Bonus:
     def move(self,dt):
          self.y += self.velocity * dt
 
+light_bricks = []
+medium_bricks = []
+heavy_bricks = []
+
+
+for i in range(5):
+    light_bricks.append(Brick(25+i*150,25*5,140,40, 1, "White"))
+for j in range(5):
+    medium_bricks.append(Brick(25+j*150,25*3,140,40, 2, "Blue"))
+for k in range(5):
+    heavy_bricks.append(Brick(25+k*150,25, 140,40, 3, "Black"))
+
+score = 0
+game_over = False
+game_won = False
+lives = 3
+ball = Ball(400, 300, 10)
+paddle = Paddle(120, 550, 100, 5)
+
+bonuses = []
+
+
+def draw():
+
+
+    if game_over:
+        screen.clear()
+        if game_won:
+            screen.draw.text('You won!', (360, 300), color=(255,255,255), fontsize=60)
+        else:
+            screen.draw.text('You lost!', (360, 300), color=(255,255,255), fontsize=60)
+    else:
+        screen.clear()
+        screen.fill((123, 221, 65))
+        screen.draw.text("Score: " + str(score), (500, 500), color=(0, 0, 0), background="white")
+        for i in range(lives):
+            screen.blit("hhh.png", (30*i, 300))
+        ball.draw()
+        paddle.draw()
+        for bonus in bonuses:
+            bonus.draw()
+        for light_brick in light_bricks:
+            light_brick.draw()
+        for medium_brick in medium_bricks:
+            medium_brick.draw()
+        for heavy_brick in heavy_bricks:
+            heavy_brick.draw()
