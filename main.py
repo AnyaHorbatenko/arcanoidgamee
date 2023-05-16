@@ -140,3 +140,44 @@ def draw():
             medium_brick.draw()
         for heavy_brick in heavy_bricks:
             heavy_brick.draw()
+
+
+def update(dt):
+    global lives
+    global score
+    global game_over
+    global game_won
+    if random.random() > 0.99:
+        new_pos = random.randint(0, WIDTH)
+        bonuses.append(Bonus(new_pos, 10))
+    for bonus in bonuses:
+        bonus.move(dt)
+
+    ball.update()
+    paddle.update()
+    paddle.check_collision(ball)
+    for bonus in bonuses:
+        paddle.check_collision_bonuses(bonus)
+    for light_brick in light_bricks:
+        if light_brick.check_collision(ball):
+            score += 1
+    for medium_brick in medium_bricks:
+        if medium_brick.check_collision(ball):
+            score += 1
+    for heavy_brick in heavy_bricks:
+        if heavy_brick.check_collision(ball):
+            score += 1
+
+    if score == len(light_bricks)+len(medium_bricks)+len(heavy_bricks):
+        game_won = True
+    if ball.y > HEIGHT:
+        lives -= 1
+        ball.x = 400
+        ball.y = 300
+    if lives == 0:
+        game_over = True
+
+
+
+
+pgzrun.go()
