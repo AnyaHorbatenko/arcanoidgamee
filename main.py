@@ -78,3 +78,18 @@ class Brick:
                 self.active = False
                 return True
         return False
+
+class Bonus:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+        self.width = 20
+        self.height = 20
+        self.velocity = 100
+
+    def draw(self):
+        screen.draw.filled_circle((self.x, self.y), 5, "Purple")
+
+    def move(self,dt):
+         self.y += self.velocity * dt
+
