@@ -34,3 +34,23 @@ class Paddle:
         if bonus.x > self.x and bonus.x < self.x + self.width and bonus.y > self.y and bonus.y < self.y + self.height:
             bonuses.remove(bonus)
             lives += 1
+
+class Ball:
+    def __init__(self, x, y, radius):
+        self.x = x
+        self.y = y
+        self.radius = radius
+        self.VelocityX = 5
+        self.VelocityY = 5
+
+    def draw(self):
+        screen.draw.filled_circle((self.x, self.y), self.radius, "Yellow")
+
+    def update(self):
+        self.x += self.VelocityX
+        self.y += self.VelocityY
+
+        if self.x > WIDTH or self.x < 0:
+            self.VelocityX = -self.VelocityX
+        if self.y > HEIGHT or self.y < 0:
+            self.VelocityY = -self.VelocityY
