@@ -1,16 +1,36 @@
-# This is a sample Python script.
+import random
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
-
-
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+import pgzrun
+import pygame as pg
 
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
+WIDTH = 800
+HEIGHT = 600
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+class Paddle:
+    def __init__(self, x, y, width, height):
+        self.x = x
+        self.y = y
+        self.width = width
+        self.height = height
+        self.rect = pg.Rect((self.x, self. y), (self.width, self.height))
+
+    def draw(self):
+        screen.draw.filled_rect(Rect((self.x, self.y), (self.width, self.height)), (255, 255, 255))
+
+    def update(self):
+        self.x = pg.mouse.get_pos()[0]
+        if self.x < -100:
+            self.x = 0
+        if self.x > WIDTH-50:
+            self.x = WIDTH-100
+
+    def check_collision(self, ball):
+        if ball.x + ball.radius > self.x and ball.x < self.x + self.width and ball.y + ball.radius > self.y and ball.y < self.y + self.height:
+        #if ball.x > self.x and ball.x < self.x + self.width and ball.y > self.y and ball.y < self.y + self.height:
+            ball.VelocityY = -ball.VelocityY
+    def check_collision_bonuses(self, bonus):
+        global lives
+        if bonus.x > self.x and bonus.x < self.x + self.width and bonus.y > self.y and bonus.y < self.y + self.height:
+            bonuses.remove(bonus)
+            lives += 1
