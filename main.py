@@ -54,3 +54,27 @@ class Ball:
             self.VelocityX = -self.VelocityX
         if self.y > HEIGHT or self.y < 0:
             self.VelocityY = -self.VelocityY
+
+class Brick:
+    def __init__(self, x, y, width, height, lives, colour):
+        self.x = x
+        self.y = y
+        self.width = width
+        self.height = height
+        self.active = True
+        self.lives = lives
+        self.colour = colour
+
+    def draw(self):
+        if self.active:
+            screen.draw.filled_rect(Rect((self.x, self.y), (self.width, self.height)), self.colour)
+
+    def check_collision(self, ball):
+        if self.active and ball.x + ball.radius > self.x and ball.x < self.x + self.width and ball.y + ball.radius > self.y and ball.y < self.y + self.height:
+        #if self.active and ball.x > self.x and ball.x < self.x + self.width and ball.y > self.y and ball.y < self.y + self.height:
+            ball.VelocityY = -ball.VelocityY
+            self.lives -= 1
+            if self.lives == 0:
+                self.active = False
+                return True
+        return False
